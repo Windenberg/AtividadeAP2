@@ -1,0 +1,99 @@
+#include <stdio.h>
+#include <stdlib.h>
+#define TAMANHO_DA_FILA 100
+
+struct fila{
+  int itens[TAMANHO_DA_FILA];
+  int frente;
+  int atras;
+};
+
+int verificaFV(struct fila *fl){
+    if(fl->frente != fl->atras){
+        return 0;
+    }else
+        return 1;
+}
+
+void inserir (struct fila *fl, int x){
+    
+    if(fl->atras >= TAMANHO_DA_FILA){
+        printf("\n Fila cheia! antes de inserir, retire algum elemento");
+        exit(1);
+    }else
+        fl->itens[fl->atras++] = x;
+}
+
+int tamanho (struct fila *fl){
+    return fl->atras;
+}
+
+int frente (struct fila *fl){
+    return fl->itens[0];
+}
+
+int remover(struct fila *fl){
+    int x, i;
+    if(verificaFV(fl)){
+        printf("\n Não existem elementos para serem retirados!");
+        
+    }
+    
+    x = frente(fl);
+    
+    for(i = 0; i<tamanho(fl); i++){
+        fl->itens[i] = fl->itens[i+1];
+        
+    }
+    
+    fl->atras--;
+    return x;
+    
+}
+
+void esvaziar (struct fila *fl){
+    
+    int tam = tamanho(fl);
+    int i;
+    printf("\n Esvaziando Fila...");
+    
+    for(i=0; i<tam; i++){
+        printf("\n Item %d retirado da fila", remover(fl));
+    }
+}
+
+int main(){
+
+    struct fila nossaFila;
+    nossaFila.frente = 0;
+    nossaFila.atras = 0;
+    
+    printf("\n Fila vazia = 1, fila com elemento = 0, resultado = %d", verificaFV(&nossaFila));
+    
+    inserir(&nossaFila, 10);
+    inserir(&nossaFila, 1);
+    inserir(&nossaFila, 100);
+
+    printf("\n Item da fila %d", nossaFila.itens[0]);
+    printf("\n Item da fila %d", nossaFila.itens[1]);
+    printf("\n Item da fila %d", nossaFila.itens[2]);
+
+    printf("\n Fila vazia = 1, fila com elemento = 0, resultado = %d", verificaFV(&nossaFila));
+    
+    printf("\n Tamanho da fila: %d", tamanho(&nossaFila));
+    
+    printf("\n O primeiro elemento é %d", frente(&nossaFila));
+ 
+    printf("\n O elemento removido foi %d", remover(&nossaFila));
+    
+    printf("\n Tamanho da fila: %d", tamanho(&nossaFila));    
+    
+    printf("\n Item da fila %d", nossaFila.itens[0]);
+    printf("\n Item da fila %d", nossaFila.itens[1]);
+
+    esvaziar(&nossaFila);
+ 
+    printf("\n Fila vazia = 1, fila com elemento = 0, resultado = %d", verificaFV(&nossaFila));
+     
+    return 0;
+}
