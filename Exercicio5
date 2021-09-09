@@ -1,0 +1,107 @@
+#include <stdio.h>
+#include <stdlib.h>
+#define TAMANHO_DA_FILA 100
+
+struct fila{
+  int itens[TAMANHO_DA_FILA];
+  int frente;
+  int atras;
+};
+
+int verificaFV(struct fila *fl){
+    if(fl->frente != fl->atras){
+        return 0;
+    }else
+        return 1;
+}
+
+int frente (struct fila *fl){
+    return fl->itens[0];
+}
+
+void inserir (struct fila *fl, int x){
+
+    if(fl->atras >= TAMANHO_DA_FILA){
+        printf("\n Fila cheia! antes de inserir, retire algum elemento");
+        exit(1);
+    }else
+    
+    fl->itens[fl->atras++] = x;
+    
+}
+
+int tamanho (struct fila *fl){
+    return fl->atras;
+}
+
+void imprimir (struct fila *fl){
+    for(int i=0; i<tamanho(fl); i++){
+    
+        printf("\n Processo com %d tempo de processo\n", fl->itens[i]);        
+    }
+
+}
+
+int remover(struct fila *fl){
+    
+    if(verificaFV(fl)){
+        printf("\n Não existem processos para serem retirados!");
+        
+    }
+    
+    int x = frente(fl);
+    
+    for(int i = 0; i<tamanho(fl); i++){
+        fl->itens[i] = fl->itens[i+1];
+        
+    }
+    
+    fl->atras--;
+    return x;
+    
+}
+
+int main(){
+
+    struct fila nossaFila;
+    nossaFila.frente = 0;
+    nossaFila.atras = 0;
+    int valor;
+    int escolha;
+    for(int f=0; f<TAMANHO_DA_FILA; f++){
+    printf(" Deseja começar a tarefa?");
+    printf("\n Opcao 1: inserir processos");
+    printf("\n Opcao 2: mostrar processos");
+    printf("\n Opcao 3: excluir processos");
+    printf("\n Opcao 4: sair\n");
+    scanf("\n %d", &escolha);
+   
+    
+    switch(escolha){
+        case 1:
+
+            printf("\n Qual o tempo de execução desse processo?");
+            scanf(" %d", &valor); 
+            inserir(&nossaFila, valor);
+            
+            break;
+            
+        case 2:
+        
+            imprimir(&nossaFila);
+            break;
+    
+        case 3:
+    
+            remover(&nossaFila);
+            break;
+    
+        case 4:
+    
+            printf("\n Thaw");
+            f=TAMANHO_DA_FILA;            
+            break;
+    } 
+}    
+    return 0;
+}
