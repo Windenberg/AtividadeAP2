@@ -1,0 +1,83 @@
+#include <stdio.h>
+#include <stdlib.h>
+#define TAMANHO_DA_FILA 100
+
+struct fila{
+  int itens[TAMANHO_DA_FILA];
+  int frente;
+  int atras;
+};
+
+int verificaFV(struct fila *fl){
+    if(fl->frente != fl->atras){
+        return 0;
+    }else
+        return 1;
+}
+
+void inserir (struct fila *fl, int x){
+    int val;
+    int valV=1 ;
+    int vfinal;
+    
+    if(fl->atras >= TAMANHO_DA_FILA){
+        printf("\n Fila cheia! antes de inserir, retire algum elemento");
+        exit(1);
+    }else{
+        for(int i=1; i<=x; i++){
+            
+            
+            val=i*valV;
+            valV = val;
+            vfinal = val;
+            
+        }    
+    fl->itens[fl->atras++] = vfinal;
+    }
+}
+
+int tamanho (struct fila *fl){
+    return fl->atras;
+}
+
+void imprimir (struct fila *fl){
+    for(int i=0; i<tamanho(fl); i++){
+    
+        printf("\n Item da fila %d", fl->itens[i]);        
+    }
+
+}
+
+int main(){
+
+    struct fila nossaFila;
+    nossaFila.frente = 0;
+    nossaFila.atras = 0;
+    int valor;
+    int escolha;
+    for(int f=0; f<TAMANHO_DA_FILA; f++){
+    printf("\n \n Deseja começar essa aplicação?");
+    printf("\n Opcao 1: começar");
+    printf("\n Opcao 2: sair");
+    scanf("\n %d", &escolha);
+   
+    
+    switch(escolha){
+        case 1:
+
+            printf("\n Qual o numero que você deseja o fatorial?");
+            scanf(" %d", &valor); 
+            inserir(&nossaFila, valor);
+            imprimir(&nossaFila);
+            
+            break;
+            
+        case 2:
+            
+            printf("\n Thaw");
+            f=TAMANHO_DA_FILA;
+            break;
+    } 
+}    
+    return 0;
+}
