@@ -1,0 +1,91 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+#define TAMANHO 10
+
+struct pilha{
+    int topo;
+    int itens[TAMANHO];
+};
+
+int vazia (struct pilha *pl){
+    if(pl->topo ==-1){
+        return -1;
+    }
+    return 0;
+}
+
+void pop(struct pilha *pl){
+    if(vazia(pl)){
+        printf("\n Pilha vazia");
+        
+    }
+    pl->itens[pl->topo--];
+    return;
+}
+
+void push(struct pilha *pl, int valor){
+    if(pl->topo == (TAMANHO-1)){
+        printf("\nA pilha está cheia");
+    }
+    
+    pl-> itens[++(pl->topo)] = valor;
+    
+    return;
+}
+
+int tamanhoPilha(struct pilha *pl){
+    return pl->topo+1;
+}
+
+int elementoTopo(struct pilha *pl){
+    return pl->itens[pl->topo];
+}
+
+void imprimir(struct pilha *pl){
+    for(int i=9; i>=0; i--){
+        
+        printf("\n Item da pilha %d", pl->itens[i]);        
+        
+    }
+
+}
+
+void operacao(struct pilha *pl, int valor){
+    
+        if(valor%2 == 0){
+            push(pl,valor);
+            
+            
+        }else{
+            pl->itens[pl->topo--];
+            }    
+}    
+
+
+int main()
+{
+    struct pilha p;
+    p.topo = -1;
+    int escolha;
+
+    printf("\n Digite 10 numeros inteiros\n");
+    
+    for(int i=0; i<10;i++){
+        
+        scanf("\n %d", &escolha);
+        operacao(&p,escolha);
+    }
+    
+    int f=tamanhoPilha(&p);
+    
+    for(int i=0; i<f; i++){
+        printf("\n Este elemento sera o proximo excluido : %d", elementoTopo(&p));
+        pop(&p);
+    }
+      
+    printf("\n o tamanho da pilha: %d", tamanhoPilha(&p));  
+    
+    
+    return 0;
+}
